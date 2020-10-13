@@ -1,0 +1,47 @@
+spring:
+  kafka:
+    client-id: enrich-1
+    bootstrap-servers:
+      - kafka:9092
+    template:
+      default-topic: input
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringDeserializer
+    consumer:
+      group-id: random-consumer
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+---
+kafka:
+  topic:
+    input: message-in-V1
+    output: message-out-V1
+
+---
+message:
+  begin: 37
+  end: 55
+---
+spring:
+  datasource:
+    url: jdbc:sqlserver://sqlnbk:1433;databaseName=db1
+    username: pfmuser
+    password: DTj<WF&&R[BV1^B
+    platform: mssql
+    initialization-mode: always
+    hikari:
+      maximum-pool-size: 20
+      poolName: MyPool
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
